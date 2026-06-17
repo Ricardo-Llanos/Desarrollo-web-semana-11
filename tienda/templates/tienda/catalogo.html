@@ -1,0 +1,37 @@
+{% extends 'tienda/base.html' %}
+
+{% block title %}{{ titulo_pagina }}{% endblock %}
+
+<!-- Información de la página y consulta -->
+{% block content %}
+<div class="mb-6">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">{{ titulo_pagina }}</h2>
+    <p class="text-sm text-gray-500">Consulta actualizada al: {% now "Y-m-d H:i" %}</p>
+</div>
+
+<!-- Lógica para mostrar productos -->
+{% if productos %}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for producto in productos %}
+            <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                <div class="p-5">
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">{{ producto.nombre|title }}</h3>
+                    <p class="text-gray-600 text-sm mb-4">{{ producto.descripcion }}</p>
+                    
+                    <div class="flex justify-between items-center border-t pt-3 border-gray-100">
+                        <span class="text-xl font-semibold text-blue-600">S/. {{ producto.precio }}</span>
+                        <span class="text-xs text-gray-400">Agregado: {{ producto.fecha_creacion|date:"d/m/Y" }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Conficional si no existen -->
+{% else %}
+    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded shadow-xs">
+        <p class="text-yellow-700 font-medium">No hay productos disponibles en este momento.</p>
+    </div>
+
+{% endif %}
+{% endblock %}
