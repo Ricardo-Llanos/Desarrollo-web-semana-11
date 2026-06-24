@@ -86,4 +86,4 @@ def registrar_producto(request):
         # GET
         form = ProductoForm()
         
-    return render(request, 'tienda/registro_producto.html', {'form': form})
+    return render(request, 'tienda/registrar_producto.html', {'form': form})
