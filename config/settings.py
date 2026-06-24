@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tienda.apps.TiendaConfig', # Añadimos nuestro proyecto a la configuración
+
+    # Configuración propia del proyecto
+    'tienda.apps.TiendaConfig',
 ]
 
 MIDDLEWARE = [
@@ -48,7 +50,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Middlewares del proyecto
+    'tienda.middleware.AuditoriaAccesoMiddleware',
 ]
+
+# --- Configuración de SESSIONS ---
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 1800 # segundos == 30 min
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Expirar cookies
+
+# --- Seguridad ---
+CSRF_COOKIE_SECURE = False  # Cambiar a TRUE en prod
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_HTTPONLY = True # Impedir lecturas desde externos
 
 ROOT_URLCONF = 'config.urls'
 
